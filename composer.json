@@ -1,5 +1,5 @@
 {
-    "name": "cboden/ratchet"
+    "name": "wendaf/ratchet"
   , "type": "library"
   , "description": "PHP WebSocket library"
   , "keywords": ["WebSockets", "Server", "Ratchet", "Sockets", "WebSocket"]
@@ -15,6 +15,10 @@
             "name": "Matt Bonneau"
           , "role": "Developer"
         }
+      , {
+          "name": "Charles Beasse"
+        , "role": "Developer"
+      }
     ]
   , "support": {
         "issues": "https://github.com/ratchetphp/Ratchet/issues"
@@ -26,7 +30,7 @@
         }
     }
   , "require": {
-        "php": ">=5.4.2"
+        "php": ">=5.4.2 || ^7 || ^8"
       , "ratchet/rfc6455": "^0.3"
       , "react/socket": "^1.0 || ^0.8 || ^0.7 || ^0.6 || ^0.5"
       , "guzzlehttp/psr7": "^1.0"
