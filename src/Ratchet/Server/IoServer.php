@@ -52,10 +52,11 @@ class IoServer {
      * @param  \Ratchet\MessageComponentInterface $component  The application that I/O will call when events are received
      * @param  int                                $port       The port to server sockets on
      * @param  string                             $address    The address to receive sockets on (0.0.0.0 means receive connections from any)
+     * @param \React\EventLoop\LoopInterface|null $loop     The React looper to run the Ratchet application off of
      * @return IoServer
      */
-    public static function factory(MessageComponentInterface $component, $port = 80, $address = '0.0.0.0') {
-        $loop   = LoopFactory::create();
+    public static function factory(MessageComponentInterface $component, $port = 80, $address = '0.0.0.0', $loop = null) {
+        $loop   = $loop ?? LoopFactory::create();
         $socket = new Reactor($address . ':' . $port, $loop);
 
         return new static($component, $socket, $loop);
@@ -88,6 +89,10 @@ class IoServer {
             parse_url((strpos($uri, '://') === false ? 'tcp://' : '') . $uri, PHP_URL_HOST),
             '[]'
         );
+
+        preg_match('/^(.*?):\/\/(.*?):(.*)/', $uri, $matches);
+
+        $conn->decor->remoteIP = $matches[2];
 
         $this->app->onOpen($conn->decor);
 
